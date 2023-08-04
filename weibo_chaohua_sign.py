@@ -1,8 +1,9 @@
 import json
 import requests
-import pprint
 import re
 import os
+import random
+import time
 from urllib.parse import urlparse, parse_qs
 
 # 定义常量
@@ -79,6 +80,7 @@ def get_topics(params, headers):
 def sign_topic(title, action, params, headers):
     action = re.search(r"request_url=(.+)", action).group(1)
     params["request_url"] = action
+    time.sleep(random.randint(1, 5))  # 暂停执行wait_time秒
     resp = requests.get(SIGN_URL, params=params, headers=headers)
     # print('服务器返回信息:', resp.json())
     if resp.json().get("msg") == "已签到":
