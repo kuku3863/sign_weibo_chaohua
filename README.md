@@ -2,7 +2,7 @@
 
 用python编辑的微博超话一键签到
 </hr>
-1、首先用打开APP用抓包工具获取到链接</n>
+1、首先打开APP,用抓包工具获取到链接</n>
   1.1 <img src="images/20230804213711.jpg" width="500"> </n>打开APP
   1.2 <img src="images/20230804213710.jpg" width="500"> </n>运行抓包软件,我这边用的是storm Sniffer,搜索cardlist，找到我框中的这个，打开
   1.3 <img src="images/20230804222552.jpg" width="500"> </n>复制这个链接,https://api.weibo.cn/2/cardlist?'开头的</n>
