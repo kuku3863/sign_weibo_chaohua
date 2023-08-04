@@ -6,7 +6,7 @@
 </br>
   1.1、打开APP<img src="images/20230804213711.jpg" width="500"> </br>
   1.2、运行抓包软件,我这边用的是storm Sniffer,搜索cardlist，找到我框中的这个，打开</br><img src="images/20230804213710.jpg" width="500"> </br>
-  1.3、复制这个链接https[:]//api.weibo.cn/2/cardlist 开头的</br><img src="images/20230804222552.jpg" width="500"> </br>
+  1.3、复制这个链接'https[:]//api.weibo.cn/2/cardlist' 开头的</br><img src="images/20230804222552.jpg" width="500"> </br>
 2、安装[青龙面板](https://github.com/whyour/qinglong)</br>
 ## 环境要求
 
