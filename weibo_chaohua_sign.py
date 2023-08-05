@@ -2,11 +2,11 @@ import json
 import requests
 import re
 import os
-from urllib.parse import urlparse, parse_qs
+import random
 import time
+from urllib.parse import urlparse, parse_qs
 
 # 定义常量
-API_TEST_URL = "https://api.weibo.cn"
 API_URL = "https://api.weibo.cn/2/cardlist"
 SIGN_URL = "https://api.weibo.cn/2/page/button"
 
@@ -27,32 +27,6 @@ headers = {
 }
 
 
-def check_url_access(url, headers=None, max_retries=5, wait_time=5):
-    """
-    检查URL是否可以访问
-
-    :param url: 需要检查的URL
-    :param headers: 请求头部，如果有的话
-    :param max_retries: 最大重试次数
-    :param wait_time: 两次重试之间的等待时间（秒）
-    :return: True 如果URL可以访问，否则False
-    """
-    for i in range(max_retries):
-        try:
-            response = requests.get(API_TEST_URL, headers=headers, timeout=10)
-            # 如果HTTP响应码在200-299之间，说明请求成功
-            if 200 <= response.status_code < 300:
-                return True
-        except requests.RequestException:
-            # 如果请求出错，等待指定的时间后再次尝试
-            if i < max_retries - 1:
-                time.sleep(wait_time)
-                continue
-            else:
-                raise
-    return False
-
-
 def extract_params(url):
     # 解析URL
     parsed_url = urlparse(url)
@@ -68,7 +42,25 @@ def extract_params(url):
 
 # 获取超话列表
 def get_topics(params, headers):
+    max_retries = 15  # 设置最大尝试次数
+    wait_time = 5  # 设置每次尝试之间的等待时间（秒）
     response = requests.get(API_URL, params=params, headers=headers)
+    for i in range(max_retries):
+        try:
+            if 200 <= response.status_code < 300:
+                # 请求成功，退出循环
+                break
+            else:
+                # 如果服务器响应不是2xx，我们也认为是请求失败
+                raise requests.RequestException(f"HTTP Error: {response.status_code}")
+        except requests.RequestException as e:
+            if i < max_retries - 1:
+                print(f"请求失败，原因: {e}。{wait_time}秒后重试...")
+                time.sleep(wait_time)
+                continue
+            else:
+                raise
+
     data = json.loads(response.text)
 
     cards = data.get("cards", [])
@@ -106,6 +98,7 @@ def get_topics(params, headers):
 def sign_topic(title, action, params, headers):
     action = re.search(r"request_url=(.+)", action).group(1)
     params["request_url"] = action
+    time.sleep(random.randint(5, 10))  # 暂停执行wait_time秒
     resp = requests.get(SIGN_URL, params=params, headers=headers)
     # print('服务器返回信息:', resp.json())
     if resp.json().get("msg") == "已签到":
@@ -116,13 +109,10 @@ def sign_topic(title, action, params, headers):
 
 
 if __name__ == "__main__":
-    if check_url_access(API_TEST_URL, headers):
-        params = extract_params(os.getenv("weibo_my_cookie"))
-        topics = get_topics(params, headers)
-        for topic in topics:
-            if topic.get("sign_action") != "":
-                action = topic.get("sign_action")
-                title = topic.get("title")
-                sign_topic(title, action, params, headers)
-    else:
-        print("URL无法访问，请检查网络连接或URL是否正确。")
+    params = extract_params(os.getenv("weibo_my_cookie"))
+    topics = get_topics(params, headers)
+    for topic in topics:
+        if topic.get("sign_action") != "":
+            action = topic.get("sign_action")
+            title = topic.get("title")
+            sign_topic(title, action, params, headers)
