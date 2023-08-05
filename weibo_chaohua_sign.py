@@ -109,10 +109,18 @@ def sign_topic(title, action, params, headers):
 
 
 if __name__ == "__main__":
-    params = extract_params(os.getenv("weibo_my_cookie"))
-    topics = get_topics(params, headers)
-    for topic in topics:
-        if topic.get("sign_action") != "":
-            action = topic.get("sign_action")
-            title = topic.get("title")
-            sign_topic(title, action, params, headers)
+    succeeded = False
+
+    while not succeeded:
+        try:
+            params = extract_params(os.getenv("weibo_my_cookie"))
+            topics = get_topics(params, headers)
+            for topic in topics:
+                if topic.get("sign_action") != "":
+                    action = topic.get("sign_action")
+                    title = topic.get("title")
+                    sign_topic(title, action, params, headers)
+            succeeded = True
+        except Exception as e:
+            print(e)
+            time.sleep(60)
