@@ -124,7 +124,6 @@ if __name__ == "__main__":
         try:
             # 获取参数
             params = extract_params(os.getenv("weibo_my_cookie"))
-
             # params = extract_params(weibo_cookier)
             # 更新header参数
             headers["Authorization"] = generate_authorization(params)
