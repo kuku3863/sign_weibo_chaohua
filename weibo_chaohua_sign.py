@@ -10,21 +10,14 @@ from urllib.parse import urlparse, parse_qs
 API_URL = "https://api.weibo.cn/2/cardlist"
 SIGN_URL = "https://api.weibo.cn/2/page/button"
 
-headers = {
-    "Accept": "*/*",
-    "User-Agent": "Weibo/81434 (iPhone; iOS 17.0; Scale/3.00)",
-    "SNRT": "normal",
-    "X-Sessionid": "6AFD786D-9CFA-4E18-BD76-60D349FA8CA2",
-    "Accept-Encoding": "gzip, deflate",
-    "X-Validator": "QTDSOvGXzA4i8qLXMKcdkqPsamS5Ax1wCJ42jfIPrNA=",
-    "Host": "api.weibo.cn",
-    "x-engine-type": "cronet-98.0.4758.87",
-    "Connection": "keep-alive",
-    "Accept-Language": "en-US,en",
-    "cronet_rid": "6524001",
-    "Authorization": "WB-SUT _2A95JzzZEDeRxGeNO6FQX8yvMyTuIHXVo3c6MrDV6PUJbkdANLWjVkWpNTxXdJQPElGxgBLb5-M-V2d2aGygXUcYb",
-    "X-Log-Uid": "5036635027",
-}
+
+# 提取cookie中的gsid
+def generate_authorization(cookie):
+    gsid = cookie.get("gsid")
+    if gsid is not None:
+        return f"WB-SUT {gsid}"
+    else:
+        return None
 
 
 def extract_params(url):
@@ -108,12 +101,33 @@ def sign_topic(title, action, params, headers):
         print("签到失败!")
 
 
+headers = {
+    "Accept": "*/*",
+    "User-Agent": "Weibo/81434 (iPhone; iOS 17.0; Scale/3.00)",
+    "SNRT": "normal",
+    "X-Sessionid": "6AFD786D-9CFA-4E18-BD76-60D349FA8CA2",
+    "Accept-Encoding": "gzip, deflate",
+    "X-Validator": "QTDSOvGXzA4i8qLXMKcdkqPsamS5Ax1wCJ42jfIPrNA=",
+    "Host": "api.weibo.cn",
+    "x-engine-type": "cronet-98.0.4758.87",
+    "Connection": "keep-alive",
+    "Accept-Language": "en-US,en",
+    "cronet_rid": "6524001",
+    "Authorization": "",
+    "X-Log-Uid": "5036635027",
+}
+
+
 if __name__ == "__main__":
     succeeded = False
-
     while not succeeded:
         try:
+            # 获取参数
             params = extract_params(os.getenv("weibo_my_cookie"))
+
+            # params = extract_params(weibo_cookier)
+            # 更新header参数
+            headers["Authorization"] = generate_authorization(params)
             topics = get_topics(params, headers)
             for topic in topics:
                 if topic.get("sign_action") != "":
