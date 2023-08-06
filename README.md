@@ -46,6 +46,8 @@
    - 把仓库中的weibo_chaohua_sign.py内容全部复制，或者直接下载下来。
 
 2. **修改代码**：
+   
+   - ![打开 APP](images/20230807032900.jpg)
    - 首先新增一个变量weibo_cookier，值为之前抓包得到的 `https[:]//api.weibo.cn/2/cardlist` 开头的链接。
    - 找到最后面params = extract_params(os.getenv("weibo_my_cookie"))这一行注释掉
      把# params = extract_params(weibo_cookier)这里的注释去掉
