@@ -63,7 +63,7 @@ def extract_params(url):
 def get_since_id(params, headers):
     data = send_request(API_URL, params, headers)
 
-    since_id = data['cardlistInfo']['since_id']
+    since_id = data["cardlistInfo"]["since_id"]
     return since_id
 
 
@@ -140,15 +140,43 @@ if __name__ == "__main__":
             # params = extract_params(weibo_my_cookie)
             since_id = get_since_id(params, headers)
             if since_id:
-                params['count'] = '1000'
+                params["count"] = "1000"
             # 更新header参数
             headers["Authorization"] = generate_authorization(params)
-            topics = get_topics(params, headers)
-            for topic in topics:
-                if topic.get("sign_action") != "":
-                    action = topic.get("sign_action")
-                    title = topic.get("title")
-                    sign_topic(title, action, params, headers)
+
+            # 外部循环，用于重新获取并处理主题，直到所有主题的 sign_action 都为空
+            while True:
+                # 重置 output 为空字符串
+                output = ""
+
+                # 假设您有一个函数 get_topics 来获取主题列表
+                topics = get_topics(params, headers)
+
+                # 检查是否存在 sign_action 不为空的主题
+                has_sign_action = any(
+                    topic.get("sign_action") != "" for topic in topics
+                )
+
+                # 如果没有 sign_action 不为空的主题，则退出外部循环
+                if not has_sign_action:
+                    break
+
+                # 原始的外部循环，用于格式化输出
+                for topic in topics:
+                    output += "超话标题:'{}'，状态:'{}'\\n".format(
+                        topic["title"], topic["sign_status"]
+                    )
+
+                # 原始的内部循环，用于检查和处理 sign_action
+                for topic in topics:
+                    if topic.get("sign_action") != "":
+                        action = topic.get("sign_action")
+                        title = topic.get("title")
+                        sign_topic(title, action, params, headers)
+
+                # 打印拼接后的 output
+                print(output)
+
             succeeded = True
         except Exception as e:
             print(e)
