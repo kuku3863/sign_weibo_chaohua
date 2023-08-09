@@ -34,6 +34,7 @@ def send_request(url, params, headers):
                 raise
 
     data = json.loads(response.text)
+
     return data
 
 
@@ -62,7 +63,6 @@ def extract_params(url):
 # 获取get_since_id
 def get_since_id(params, headers):
     data = send_request(API_URL, params, headers)
-
     since_id = data["cardlistInfo"]["since_id"]
     return since_id
 
@@ -133,14 +133,13 @@ headers = {
 
 if __name__ == "__main__":
     succeeded = False
+    # 获取参数
+    params = extract_params(os.getenv("weibo_my_cookie"))
+    # params = extract_params(weibo_my_cookie)
     while not succeeded:
         try:
-            # 获取参数
-            params = extract_params(os.getenv("weibo_my_cookie"))
-            # params = extract_params(weibo_my_cookie)
             since_id = get_since_id(params, headers)
-            if since_id:
-                params["count"] = "1000"
+            params["count"] = "1000"
             # 更新header参数
             headers["Authorization"] = generate_authorization(params)
 
