@@ -1,5 +1,7 @@
 # 微博超话一键签到
 
+通过分析得知,cardlist中c,s,gsid,from,containerid为必须参数，count可以控制每页数量多页以后会出一个since_id,包含三个参数，其中有page，但是第一页是没有这个参数的。
+
 使用 Python 编写的微博超话一键签到。
 
 ---
