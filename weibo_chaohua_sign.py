@@ -6,6 +6,7 @@ import os
 import random
 import time
 from urllib.parse import urlparse, parse_qs
+from notify import send
 
 # 定义常量
 API_URL = "https://api.weibo.cn/2/cardlist"
@@ -103,16 +104,21 @@ def get_topics(params, headers):
 
 # 超话签到
 def sign_topic(title, action, params, headers):
+    message = ""
     action = re.search(r"request_url=(.+)", action).group(1)
     params["request_url"] = action
     time.sleep(random.randint(5, 10))  # 暂停执行wait_time秒
     resp = requests.get(SIGN_URL, params=params, headers=headers)
     # print('服务器返回信息:', resp.json())
     if resp.json().get("msg") == "已签到":
-        output = "超话标题:'{}'，状态:'签到成功！'\n".format(title)
-        print(output)
+        qd_output = "超话标题:'{}'，状态:'签到成功！'\n".format(title)
+        print(qd_output)
+        message += qd_output
+
     else:
         print("签到失败!")
+
+    return message
 
 
 headers = {
@@ -134,8 +140,10 @@ headers = {
 if __name__ == "__main__":
     succeeded = False
     # 获取参数
+    # weibo_my_cookie = ''
     params = extract_params(os.getenv("weibo_my_cookie"))
     # params = extract_params(weibo_my_cookie)
+    message_to_push = ""
     while not succeeded:
         try:
             since_id = get_since_id(params, headers)
@@ -147,36 +155,34 @@ if __name__ == "__main__":
             while True:
                 # 重置 output 为空字符串
                 output = ""
-
                 # 假设您有一个函数 get_topics 来获取主题列表
                 topics = get_topics(params, headers)
-
                 # 检查是否存在 sign_action 不为空的主题
                 has_sign_action = any(
                     topic.get("sign_action") != "" for topic in topics
                 )
-
                 # 如果没有 sign_action 不为空的主题，则退出外部循环
                 if not has_sign_action:
                     break
-
                 # 原始的外部循环，用于格式化输出
                 for topic in topics:
                     output += "超话标题:'{}'，状态:'{}'\\n".format(
                         topic["title"], topic["sign_status"]
                     )
-
                 # 原始的内部循环，用于检查和处理 sign_action
                 for topic in topics:
                     if topic.get("sign_action") != "":
                         action = topic.get("sign_action")
                         title = topic.get("title")
-                        sign_topic(title, action, params, headers)
+                        message = sign_topic(title, action, params, headers)
+                        message_to_push += message  # 将每个主题的消息追加到最终要推送的消息中
 
-                # 打印拼接后的 output
-                print(output)
+                # print(output)
 
             succeeded = True
         except Exception as e:
             print(e)
             time.sleep(60)
+
+    # print('message:', message)
+    send("微博签到结果:", message_to_push)
