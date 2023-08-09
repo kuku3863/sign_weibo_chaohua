@@ -17,7 +17,7 @@
      - 'SMTP_NAME': '随意填'  # SMTP 收发件人姓名，可随意填写
 2. 本地使用，server酱推送
    - 修改以下参数：
-     - 'PUSH_KEY': '',  # PushMe酱的PUSHME_KEY
+     - 'PUSH_KEY': '',  # server 酱的 PUSH_KEY，兼容旧版与 Turbo 版
 
 ## 获取链接
 
