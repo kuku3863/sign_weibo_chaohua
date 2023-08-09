@@ -14,10 +14,10 @@
      - 'SMTP_SSL': 'true'
      - 'SMTP_EMAIL': '自己的QQ邮箱'
      - 'SMTP_PASSWORD': '授权码'
-     - 'SMTP_NAME': '随意填' # SMTP 收发件人姓名，可随意填写
-2.本地使，server酱推送
+     - 'SMTP_NAME': '随意填'  # SMTP 收发件人姓名，可随意填写
+2. 本地使用，server酱推送
    - 修改以下参数：
-     -'PUSHME_KEY': '',  # PushMe 酱的 PUSHME_KEY 
+     - 'PUSHME_KEY': '',  # PushMe酱的PUSHME_KEY
 
 ## 获取链接
 
