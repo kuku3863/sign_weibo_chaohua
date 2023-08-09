@@ -5,6 +5,16 @@
 使用 Python 编写的微博超话一键签到。
 
 ---
+# 更新
+## 2023-08-09 更新：新增推送功能
+### 如何使用
+1. 本地使用，如：QQ邮箱推送
+   - 修改以下参数：
+     - 'SMTP_SERVER': 'smtp.qq.com:465'
+     - 'SMTP_SSL': 'true'
+     - 'SMTP_EMAIL': '自己的QQ邮箱'
+     - 'SMTP_PASSWORD': '授权码'
+     - 'SMTP_NAME': '随意填'
 
 ## 获取链接
 
