@@ -93,13 +93,13 @@ push_config = {
     'AIBOTK_TYPE': '',  # 智能微秘书 发送目标 room 或 contact
     'AIBOTK_NAME': '',  # 智能微秘书  发送群名 或者好友昵称和type要对应好
 
-    'SMTP_SERVER': 'smtp.qq.com:465',  # SMTP 发送邮件服务器，形如 smtp.exmail.qq.com:465
-    'SMTP_SSL': 'true',  # SMTP 发送邮件服务器是否使用 SSL，填写 true 或 false
-    'SMTP_EMAIL': '386392685@qq.com',  # SMTP 收发件邮箱，通知将会由自己发给自己
-    'SMTP_PASSWORD': 'stktuwkgikgkbigi',  # SMTP 登录密码，也可能为特殊口令，视具体邮件服务商说明而定
-    'SMTP_NAME': 'liubin',  # SMTP 收发件人姓名，可随意填写
+    'SMTP_SERVER': '',  # SMTP 发送邮件服务器，形如 smtp.exmail.qq.com:465
+    'SMTP_SSL': 'false',  # SMTP 发送邮件服务器是否使用 SSL，填写 true 或 false
+    'SMTP_EMAIL': '',  # SMTP 收发件邮箱，通知将会由自己发给自己
+    'SMTP_PASSWORD': '',  # SMTP 登录密码，也可能为特殊口令，视具体邮件服务商说明而定
+    'SMTP_NAME': '',  # SMTP 收发件人姓名，可随意填写
 
-    'PUSHME_KEY': 'SCT188654TvCQcQ8U6qxWzLXZqrMOkNaTt',  # PushMe 酱的 PUSHME_KEY
+    'PUSHME_KEY': '',  # PushMe 酱的 PUSHME_KEY
 }
 notify_function = []
 # fmt: on

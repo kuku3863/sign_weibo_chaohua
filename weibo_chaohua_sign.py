@@ -121,6 +121,13 @@ def sign_topic(title, action, params, headers):
     return message
 
 
+def get_username(params, headers):
+    url = 'https://api.weibo.cn/2/profile/me'
+    response = requests.get(url, headers=headers, params=params)
+    data = json.loads(response.text)
+    return data['mineinfo']['screen_name']
+
+
 headers = {
     "Accept": "*/*",
     "User-Agent": "Weibo/81434 (iPhone; iOS 17.0; Scale/3.00)",
@@ -146,6 +153,10 @@ if __name__ == "__main__":
     message_to_push = ""
     while not succeeded:
         try:
+
+            # 获取用户名
+            name = get_username(params, headers)
+            print('用户名:', name + '\n')
             since_id = get_since_id(params, headers)
             params["count"] = "1000"
             # 更新header参数
