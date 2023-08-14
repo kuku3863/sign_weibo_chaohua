@@ -150,8 +150,8 @@ class WeiboSigner:
 
 if __name__ == "__main__":
     # 获取用户参数
-    # weibo_my_cookie = os.getenv("weibo_my_cookie")
-    weibo_my_cookie = ""
+    weibo_my_cookie = os.getenv("weibo_my_cookie")
+    # weibo_my_cookie = ""
     user_cookies = weibo_my_cookie.split(';')  # 通过分号分割多个用户的 cookie
     if user_cookies is None:
         print("错误：请设置环境变量 'weibo_my_cookie'")
