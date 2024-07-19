@@ -97,6 +97,6 @@
 6. **测试**：
    - 点击 "定时任务" 找到添加好的任务，点击操作下面的第一个按钮，运行测试。
 
-   ![结果](images/20230804234216.jpg)![1](https://github.com/user-attachments/assets/ce428642-a2f2-4220-a7d2-207ccff7d791)
+   ![1](https://github.com/user-attachments/assets/ce428642-a2f2-4220-a7d2-207ccff7d791)
 ![2](https://github.com/user-attachments/assets/a43ae327-8f45-40d0-ac30-47c4310a6909)
 
