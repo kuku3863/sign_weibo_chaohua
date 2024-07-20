@@ -6,6 +6,7 @@
 
 ---
 # 更新
+## 2024-07-20 更新：新增chaohua_sign.py，修改了原来的weibo_chaohua_sign.py
 ## 2023-08-14 更新：新增获取用户名,新增multi_user_weibo_sign.py，支持多用户，使用方法是之前环境变量‘weibo_my_cookie’用';'隔开多用户
 ## 2023-08-09 更新：新增推送功能
 ### 如何使用
@@ -25,7 +26,7 @@
 ## 获取链接
 
 首先，打开 APP，使用抓包工具获取链接。
-
+第一种：cardlist链接方式：
 1. 打开 APP
 
    ![打开 APP](images/20230804213711.jpg)
@@ -38,6 +39,21 @@
 
    ![找到数据](images/20230804222552.jpg)
 
+第二种：status链接方式：
+1. 打开 APP
+   ![微博](https://github.com/user-attachments/assets/789233c7-7468-45d7-8b15-078e1a1f3a4c)
+   ![微博](https://github.com/user-attachments/assets/be3326b3-4b25-4654-9ebd-92ec41881cfb)
+   
+2. 运行抓包软件。我这边用的是 storm Sniffer，搜索 status，找到我框中的这个，(任意一个都可以)打开。
+   ![111](https://github.com/user-attachments/assets/fecbdae8-52ca-4ddd-a655-229289cb2f79)
+   
+   
+4. 复制这个以 `https[:]//api.weibo.cn/2/statuses` 开头的链接。
+   ![222](https://github.com/user-attachments/assets/fb85368a-0e15-4fa7-8846-7f4387c5d987)
+
+5. 运行结果
+   ![444](https://github.com/user-attachments/assets/f5276d6b-6378-44dd-b188-3a30251a1564)
+   
 ---
 
 ## 环境要求
