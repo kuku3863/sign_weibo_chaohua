@@ -49,7 +49,8 @@
    
    
 4. 复制这个以 `https[:]//api.weibo.cn/2/statuses` 开头的链接。
-   ![222](https://github.com/user-attachments/assets/fb85368a-0e15-4fa7-8846-7f4387c5d987)
+   ![222](https://github.com/user-attachments/assets/5616e5ad-c9fc-4f8c-80d6-8b0ee7768ccf)
+
 
 5. 运行结果
    ![444](https://github.com/user-attachments/assets/f5276d6b-6378-44dd-b188-3a30251a1564)
