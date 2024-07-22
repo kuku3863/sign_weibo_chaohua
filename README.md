@@ -10,7 +10,7 @@
 ---
 # 更新
 ## 2024-07-20 更新：新增chaohua_sign.py，修改了原来的weibo_chaohua_sign.py
-## 2023-08-14 更新：新增获取用户名,新增multi_user_weibo_sign.py，支持多用户，使用方法是之前环境变量‘weibo_my_cookie’用';'隔开多用户
+## 2023-08-14 更新：新增获取用户名,新增multi_user_weibo_sign.py，支持多用户，使用方法是之前环境变量‘weibo_my_cookie’用';'隔开多用户(弃用)
 ## 2023-08-09 更新：新增推送功能
 ### 如何使用
 1. 本地使用，QQ邮箱推送
