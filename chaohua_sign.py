@@ -81,7 +81,6 @@ def main():
                     "request_url": result['action'].split('request_url=')[1],
                     "ext_uid": result['ext_uid']
                 }
-
                 sign_response = sign_in_super_topic(sign_url, headers, sign_params)
                 sign_in_results.append(f"{result['title_sub']}超话：{'成功' if sign_response.get('result', 0) == 1 else '失败'}")
                 time.sleep(2)  # 添加延时
