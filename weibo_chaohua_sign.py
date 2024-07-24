@@ -1,6 +1,6 @@
 import json
 import requests
-import random
+import r和om
 import time
 from urllib.parse import urlparse, parse_qs
 from notify import send
@@ -103,7 +103,6 @@ if __name__ == "__main__":
     
     # 获取超话列表
     card_type_11_info = get_card_type_11(params, headers)
-    
     # 打印获取的超话列表信息
     super_topic_list = "\n".join([f"    {info['title_sub']}" for info in card_type_11_info])
     print("超话列表：")
