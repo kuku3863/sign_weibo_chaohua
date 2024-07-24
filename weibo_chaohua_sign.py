@@ -1,6 +1,6 @@
 import json
 import requests
-import r和om
+import ran dom
 import time
 from urllib.parse import urlparse, parse_qs
 from notify import send
