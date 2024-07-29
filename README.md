@@ -1,5 +1,7 @@
 ### 微博超话一键签到
 
+![访问量统计](https://komarev.com/ghpvc/?username=wd210010&style=flat-square)
+
 通过分析得知，cardlist中c,s,gsid,from,containerid为必须参数
 aid应该是身份信息，其他参数可以自行验证是否必须
 
