@@ -4,7 +4,6 @@ import requests
 
 def send_weibo_post():
     url = "https://api.weibo.cn/2/statuses/send"
-    
     headers = {
         "User-Agent": "Weibo/88047 (iPhone; iOS 17.3.1; Scale/3.00)",
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
