@@ -109,10 +109,9 @@ aid应该是身份信息，其他参数可以自行验证是否必须
 ### 运行结果
 
 ![运行结果](https://github.com/user-attachments/assets/f5276d6b-6378-44dd-b188-3a30251a1564)
-![运行结果](![微信截图_20250207112445](https://github.com/user-attachments/assets/2708b42b-b7fb-47df-9e14-182b7fb4d4e8)
-)
-![运行结果](![微信截图_20250207112506](https://github.com/user-attachments/assets/41c0e6b7-6055-4a0f-9f43-53efbf3a3829)
-)
+![运行结果](https://github.com/kuku3863/sign_weibo_chaohua/blob/master/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250207112445.png)
+![运行结果](https://github.com/kuku3863/sign_weibo_chaohua/blob/master/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250207112506.jpg)
+
 ---
 
 ### 推送功能
