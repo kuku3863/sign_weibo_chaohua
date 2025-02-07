@@ -209,7 +209,7 @@ def main():
             error_msg = f"处理账号 {account_name} 时出错: {str(e)}"
             print(f"[CRITICAL] {error_msg}")
             all_results.append(f"\n账号：{account_name}\n[处理出错] {error_msg}")
-
+    result_message = "\n".join(all_results)
     # 发送签到结果
     send("微博签到结果:", result_message)
 
