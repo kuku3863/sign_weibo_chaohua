@@ -13,7 +13,7 @@ aid应该是身份信息，其他参数可以自行验证是否必须
 ---
 
 ### 更新日志
-- **2025-02-07**：修改了statuses签到版本的逻辑，微博那边更新了签到逻辑，新增了body(通过分析，当前阶段参数值应该是固定,等跑几天看看效果)，更新了代码，cookie方面不变，所以只需要把最新的代码更新就可以
+- **2025-02-07**：修改了statuses签到版本的逻辑，微博那边更新了签到逻辑，新增了body(通过分析，当前阶段参数值应该是固定,等跑几天看看效果)，更新了代码，cookie方面不变，所以只需要把最新的代码更新就可以，另外这个代码，是可以多账号的，比如我这代码中，青龙添加环境变量'status_tianqi','status_taobudiao'，可以根据自己情况修改
 - **2024-07-26**：新增`send_weibo.py`发微博，使用status方式的环境变量`status_taobudiao`，并新增`WEIBO_CONTENT`环境变量，用于写入发送微博的内容。
 - **2024-07-20**：新增`chaohua_sign.py`，修改了原来的`weibo_chaohua_sign.py`。
 - **2023-08-14**：新增获取用户名，新增`multi_user_weibo_sign.py`，支持多用户，使用方法是之前环境变量`weibo_my_cookie`用`;`隔开多用户（弃用）。
@@ -109,7 +109,10 @@ aid应该是身份信息，其他参数可以自行验证是否必须
 ### 运行结果
 
 ![运行结果](https://github.com/user-attachments/assets/f5276d6b-6378-44dd-b188-3a30251a1564)
-
+![运行结果](![微信截图_20250207112445](https://github.com/user-attachments/assets/2708b42b-b7fb-47df-9e14-182b7fb4d4e8)
+)
+![运行结果](![微信截图_20250207112506](https://github.com/user-attachments/assets/41c0e6b7-6055-4a0f-9f43-53efbf3a3829)
+)
 ---
 
 ### 推送功能
