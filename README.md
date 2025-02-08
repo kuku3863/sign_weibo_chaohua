@@ -1,140 +1,180 @@
-### 微博超话一键签到
+# 微博超话一键签到 & 发微博工具
 
-![访问量统计](https://komarev.com/ghpvc/?username=wd210010&style=flat-square)
+[![访问量统计](https://komarev.com/ghpvc/?username=wd210010&style=flat-square)](https://github.com/)
 
-通过分析得知，cardlist中c,s,gsid,from,containerid为必须参数
-aid应该是身份信息，其他参数可以自行验证是否必须
+本项目实现了**微博超话一键签到**和**自动发微博**功能。通过分析微博接口，我们提取了 `cardlist` 中的必需参数（如：`c`、`s`、`gsid`、`from`、`containerid`），结合 cookie 信息，实现自动签到及发微博。支持多账号管理，并内置推送通知功能，让你不错过每一次签到和发微博的结果。
 
-#### 主要功能
+## 目录
 
-- 一键签到微博超话
-- 发微博功能，使用相同的cookies
+- [主要功能](#主要功能)
+- [更新日志](#更新日志)
+- [环境要求](#环境要求)
+- [安装与使用](#安装与使用)
+  - [方式一：本地运行](#方式一本地运行)
+  - [方式二：青龙面板部署](#方式二青龙面板部署)
+- [Cookie 获取方法](#cookie-获取方法)
+  - [cardlist 链接方式](#cardlist-链接方式)
+  - [status 链接方式](#status-链接方式)
+- [运行结果展示](#运行结果展示)
+- [推送通知设置](#推送通知设置)
+- [常见问题](#常见问题)
+- [鸣谢与联系方式](#鸣谢与联系方式)
 
----
+## 主要功能
 
-### 更新日志
-- **2025-02-07**：修改了statuses签到版本的逻辑，微博那边更新了签到逻辑，新增了body(通过分析，当前阶段参数值应该是固定,等跑几天看看效果)，更新了代码，cookie方面不变，所以只需要把最新的代码更新就可以，另外这个代码，是可以多账号的，比如我这代码中，青龙添加环境变量'status_tianqi','status_taobudiao'，可以根据自己情况修改
-- **2024-07-26**：新增`send_weibo.py`发微博，使用status方式的环境变量`status_taobudiao`，并新增`WEIBO_CONTENT`环境变量，用于写入发送微博的内容。
-- **2024-07-20**：新增`chaohua_sign.py`，修改了原来的`weibo_chaohua_sign.py`。
-- **2023-08-14**：新增获取用户名，新增`multi_user_weibo_sign.py`，支持多用户，使用方法是之前环境变量`weibo_my_cookie`用`;`隔开多用户（弃用）。
-- **2023-08-09**：新增推送功能。
+- **一键签到微博超话**  
+  自动完成微博超话的每日签到任务，支持多账号同时签到。
 
----
+- **自动发微博**  
+  利用同一 cookie 信息，自动发布微博，支持通过环境变量自定义微博内容。
 
-### 环境要求
+- **推送通知**  
+  集成 QQ 邮箱与 Server 酱推送，确保你第一时间收到运行结果通知。
 
-- Docker
-- 青龙面板
-- Python
+- **灵活配置**  
+  可通过环境变量或本地修改代码，自定义参数设置，满足多场景需求。
 
----
+## 更新日志
 
-### 使用说明
+- **2025-02-07**  
+  - 修改了 statuses 签到版本逻辑，应对微博最新签到机制更新。  
+  - 新增固定值的 `body` 参数，后续根据运行效果调整。  
+  - 支持多账号签到（配置环境变量如 `status_tianqi`、`status_taobudiao`）。
 
-提供了两种方式来使用这个项目：一种是在本地运行，另一种是通过青龙面板。
+- **2024-07-26**  
+  - 新增 `send_weibo.py` 发微博模块，支持使用 `WEIBO_CONTENT` 环境变量自定义微博内容。
 
----
+- **2024-07-20**  
+  - 新增 `chaohua_sign.py`，更新了原 `weibo_chaohua_sign.py` 的逻辑。
 
-### 方式一：在本地运行
+- **2023-08-14**  
+  - 新增获取用户名功能，并推出 `multi_user_weibo_sign.py` 多用户支持（原通过 `weibo_my_cookie` 分号分隔多账号方式已弃用）。
 
-1. **复制代码**：
-   - 把仓库中的`weibo_chaohua_sign.py`内容全部复制，或者直接下载下来。
+- **2023-08-09**  
+  - 新增推送通知功能，确保信息及时反馈。
 
-2. **修改代码**：
-   - 首先新增一个变量`weibo_my_cookie`，值为之前抓包得到的`https://api.weibo.cn/2/cardlist`开头的链接。
-   - 注释掉最后面`params = extract_params(os.getenv("weibo_my_cookie"))`这一行。
-   - 把`# params = extract_params(weibo_my_cookie)`的注释去掉。
-   - 运行脚本。
+## 环境要求
 
----
+- **Docker**（可选）
+- **青龙面板**（推荐用于定时任务管理）
+- **Python 3**
 
-### 方式二：使用青龙面板
+## 安装与使用
 
-1. **依赖管理**：
-   - 选择`python3`。
-   - 点击右上角 "新建依赖"，名称填`requests`。
+### 方式一：本地运行
 
-2. **添加脚本**：
-   - 选择"脚本管理"，点击右上角"+"按钮。
-   - 类型选择"空文件"，文件名自定义，如：`weibo_sign.py`。注意后缀必须添加。
-   - 点击确定完成新建。
+1. **获取代码**  
+   将仓库中的 `weibo_chaohua_sign.py` 文件下载或复制到本地。
 
-3. **添加代码**：
-   - 点击左侧`weibo_sign.py`，点击右上角编辑按钮。
-   - 将仓库中的`weibo_chaohua_sign.py`文件中的内容全部复制过来，然后点击保存。
+2. **配置 Cookie**  
+   - 新增变量 `weibo_my_cookie`，将你通过抓包获取到的以 `https://api.weibo.cn/2/cardlist` 开头的链接赋值给它。  
+   - 注释掉代码中通过环境变量读取 Cookie 的部分（例如：`params = extract_params(os.getenv("weibo_my_cookie"))`），并启用本地变量读取（解除 `# params = extract_params(weibo_my_cookie)` 前的注释）。
 
-4. **环境变量**：
-   - 点击左侧环境变量，点击右上角新建变量。
-   - 名称填`weibo_my_cookie`，值填抓包到的地址（`https://api.weibo.cn/2/cardlist?`开头的）。
+3. **运行脚本**  
+   在命令行中执行脚本，检查日志确认是否签到和发微博成功。
 
-5. **定时任务**：
-   - 点击"定时任务"，点击右上角新建任务，名称自定义。
-   - 命令/脚本，填写刚才的文件，即：`weibo_chaohua_sign.py`。
-   - 定时规则根据自己需求，例如：`0 10 21 * * ?` 代表每天晚上9点10分执行。
+### 方式二：青龙面板部署
 
-6. **测试**：
-   - 点击"定时任务"，找到添加好的任务，点击操作下面的第一个按钮，运行测试。
+1. **依赖管理**  
+   - 在青龙面板中选择 `python3` 环境。  
+   - 点击右上角 “新建依赖”，添加 `requests` 模块。
 
----
+2. **添加脚本**  
+   - 进入“脚本管理”，点击右上角 “+” 按钮，新建一个空文件（如 `weibo_sign.py`，注意保留后缀名）。  
+   - 将 `weibo_chaohua_sign.py` 的全部代码复制粘贴到文件中并保存。
 
-### 获取链接
+3. **设置环境变量**  
+   - 在青龙面板中添加环境变量 `weibo_my_cookie`，值为抓包得到的链接（以 `https://api.weibo.cn/2/cardlist` 开头）。
 
-首先，打开APP，使用抓包工具获取链接。
+4. **配置定时任务**  
+   - 进入“定时任务”，点击 “新建任务”，设置任务名称。  
+   - 在“命令/脚本”字段中填写文件名（如 `weibo_chaohua_sign.py`）。  
+   - 根据需要设置定时规则（例如：`0 10 21 * * ?` 表示每天 21:10 执行）。
 
-#### 第一种：cardlist链接方式
+5. **测试运行**  
+   - 在任务列表中找到刚添加的任务，点击运行按钮进行测试。
 
-1. 打开APP
+## Cookie 获取方法
+
+获取 Cookie 链接是使用本项目的前提，可通过两种方式：
+
+### cardlist 链接方式
+
+1. **打开微博 APP**  
+   使用手机打开微博 APP。
+
    ![打开 APP](images/20230804213711.jpg)
 
-2. 运行抓包软件，搜索cardlist，找到对应的链接并打开。
+2. **抓包定位**  
+   使用抓包工具搜索关键词 `cardlist`，定位到对应链接。
+
    ![抓包](images/20230804213710.jpg)
 
-3. 复制以`https://api.weibo.cn/2/cardlist`开头的链接。
+3. **复制链接**  
+   复制以 `https://api.weibo.cn/2/cardlist` 开头的链接，用于配置 `weibo_my_cookie`。
+
    ![找到数据](images/20230804222552.jpg)
 
-#### 第二种：status链接方式
+### status 链接方式
 
-1. 打开APP
+1. **打开微博 APP**  
+   同样打开微博 APP。
+
    ![微博](https://github.com/user-attachments/assets/789233c7-7468-45d7-8b15-078e1a1f3a4c)
-   ![微博](https://github.com/user-attachments/assets/be3326b3-4b25-4654-9ebd-92ec41881cfb)
 
-2. 运行抓包软件，搜索status，找到对应的链接并打开。
+2. **抓包定位**  
+   使用抓包工具搜索 `状态` 关键词，找到对应链接。
+
    ![111](https://github.com/user-attachments/assets/fecbdae8-52ca-4ddd-a655-229289cb2f79)
 
-3. 复制以`https://api.weibo.cn/2/statuses`开头的链接。
+3. **复制链接**  
+   复制以 `https://api.weibo.cn/2/statuses` 开头的链接备用。
+
    ![222](https://github.com/user-attachments/assets/69c375e1-0b87-448e-a8e5-3d3e2ba30b67)
 
----
+## 运行结果展示
 
-### 运行结果
+工具运行成功后的示例截图如下：
 
-![运行结果](https://github.com/user-attachments/assets/f5276d6b-6378-44dd-b188-3a30251a1564)
-![运行结果](https://github.com/kuku3863/sign_weibo_chaohua/blob/master/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250207112445.png)
+![运行结果](https://github.com/user-attachments/assets/f5276d6b-6378-44dd-b188-3a30251a1564)  
+![运行结果](https://github.com/kuku3863/sign_weibo_chaohua/blob/master/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250207112445.png)  
 ![运行结果](https://github.com/kuku3863/sign_weibo_chaohua/blob/master/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250207112506.jpg)
 
----
+## 推送通知设置
 
-### 推送功能
+本项目内置推送功能，支持以下两种方式：
 
-#### 使用QQ邮箱推送
+### 使用 QQ 邮箱推送
 
-修改以下参数：
+请修改配置参数：
 
-- `SMTP_SERVER`: `smtp.qq.com:465`
-- `SMTP_SSL`: `true`
-- `SMTP_EMAIL`: `你的QQ邮箱`
-- `SMTP_PASSWORD`: `授权码`
-- `SMTP_NAME`: `随意填`
+- **SMTP_SERVER**：`smtp.qq.com:465`
+- **SMTP_SSL**：`true`
+- **SMTP_EMAIL**：你的 QQ 邮箱地址
+- **SMTP_PASSWORD**：QQ 授权码
+- **SMTP_NAME**：任意名称（用于标识发送者）
 
-#### 使用Server酱推送
+### 使用 Server 酱推送
 
-修改以下参数：
+配置参数：
 
-- `PUSH_KEY`: `Server酱的PUSH_KEY`
+- **PUSH_KEY**：填入 Server 酱提供的 PUSH_KEY
 
----
+## 常见问题
 
-### 其他
+1. **如何获取最新的 Cookie 链接？**  
+   请参考[Cookie 获取方法](#cookie-获取方法)部分。
 
-- 青龙面板使用方法请参考[青龙面板文档](https://github.com/whyour/qinglong)。
-- 如有疑问，欢迎向我提问。
+2. **如何配置多账号签到？**  
+   请使用多个环境变量（例如：`status_tianqi`、`status_taobudiao`），具体参考更新日志说明。
+
+3. **运行中遇到问题怎么办？**  
+   - 请检查 Cookie 链接是否正确。  
+   - 仔细核对环境变量配置及依赖安装情况。  
+   - 如仍有疑问，可在 Issue 中反馈。
+
+## 鸣谢与联系方式
+
+- 感谢 [青龙面板](https://github.com/whyour/qinglong) 提供的优秀定时任务管理方案。
+- 欢迎 Star、Fork 和提 Issue，帮助项目不断完善。  
+- 如有疑问或建议，请在 Issue 中留言交流。
