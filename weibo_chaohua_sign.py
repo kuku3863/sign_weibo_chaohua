@@ -119,9 +119,8 @@ if __name__ == "__main__":
                 status = '✅ 成功'
             else:
                 status = '❌ 失败'
-            result_message += f"    {info['title_sub']}超话：{状态}\n"
+            result_message += f"    {info['title_sub']}超话：{status}\n"
             time.sleep(random.randint(5, 10))  
         print(result_message)
         
         since_id += 1 
-    # send("微博签到结果:", f"超话列表：\n{super_topic_list}\n{result_message}")
