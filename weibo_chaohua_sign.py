@@ -25,7 +25,8 @@ def extract_params(url):
     params_from_url = {k: v[0] for k, v in params_from_url.items()}
     return params_from_url
 
-def get_card_type_11(params, headers):
+def get_card_type_11(params, headers, since_id):
+    params['since_id'] = since_id  # 添加 since_id 到请求参数中
     data = send_request(API_URL, params, headers)
     if data is None:
         return []
@@ -43,7 +44,7 @@ def get_card_type_11(params, headers):
                     card_type_11_info.append(info)
     return card_type_11_info
 
-def sign_in(headers, base_params, scheme):
+def sign_in(headers, base_params, scheme, since_id):
     params = extract_params(scheme)
     request_url = f"http://i.huati.weibo.com/mobile/super/active_fcheckin?cardid=bottom_one_checkin&container_id={params['containerid']}&pageid={params['containerid']}&scheme_type=1"
     sign_in_params = {
@@ -70,6 +71,7 @@ def sign_in(headers, base_params, scheme):
         "orifid": base_params.get("orifid"),
         "oriuicode": base_params.get("oriuicode"),
         "request_url": request_url,
+        "since_id": since_id,
         "source_code": base_params.get("source_code"),
         "sourcetype": "page",
         "uicode": base_params.get("uicode"),
@@ -97,29 +99,29 @@ headers = {
 }
 
 if __name__ == "__main__":
-    # weibo_my_cookie = ''
-    # params = extract_params(weibo_my_cookie)
-    params = extract_params(os.getenv("weibo_my_cookie"))
-    
-    # 获取超话列表
-    card_type_11_info = get_card_type_11(params, headers)
-    # 打印获取的超话列表信息
-    super_topic_list = "\n".join([f"    {info['title_sub']}" for info in card_type_11_info])
-    print("超话列表：")
-    print(super_topic_list)
-    
-    # 依次进行签到
-    result_message = "\n签到结果：\n"
-    for info in card_type_11_info:
-        result = sign_in(headers, params, info['scheme'])
-        # 判断签到结果
-        if result and result.get('msg') == '已签到':
-            status = '成功'
-        else:
-            status = '失败'
-        result_message += f"    {info['title_sub']}超话：{status}\n"
-        time.sleep(random.randint(5, 10))  # 避免请求过于频繁
-
-    print(result_message)
-    send("微博签到结果:", f"超话列表：\n{super_topic_list}\n{result_message}")
-
+    weibo_my_cookie = os.getenv("weibo_my_cookie")
+    since_id = 1
+    while True:
+        params = extract_params(weibo_my_cookie)
+        card_type_11_info = get_card_type_11(params, headers, since_id)  # 传递 since_id 到函数中
+        
+        if not card_type_11_info:  # 如果没有数据，停止循环
+            break
+        
+        super_topic_list = "\n".join([f"    {info['title_sub']}" for info in card_type_11_info])
+        print("超话列表：")
+        print(super_topic_list)
+        
+        result_message = "\n签到结果：\n"
+        for info in card_type_11_info:
+            result = sign_in(headers, params, info['scheme'], since_id)
+            if result and result.get('msg') == '已签到':
+                status = '✅ 成功'
+            else:
+                status = '❌ 失败'
+            result_message += f"    {info['title_sub']}超话：{状态}\n"
+            time.sleep(random.randint(5, 10))  
+        print(result_message)
+        
+        since_id += 1 
+    # send("微博签到结果:", f"超话列表：\n{super_topic_list}\n{result_message}")
