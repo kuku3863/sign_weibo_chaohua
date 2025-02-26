@@ -36,9 +36,13 @@
 
 ## 更新日志
 
+- **2025-02-26**  
+  - 对 statuses 签到的图片补充。  
+  - chaohua_sign.py，单账号需要删除tianqi_url = os.getenv("status_tianqi")和("tianqi", tianqi_url)   
+
 - **2025-02-07**  
   - 修改了 statuses 签到版本逻辑，应对微博最新签到机制更新。  
-  - 新增固定值的 `body` 参数，后续根据运行效果调整。  
+  - 新增固定值的 `内容` 参数，后续根据运行效果调整。  
   - 支持多账号签到（配置环境变量如 `status_tianqi`、`status_taobudiao`）。
 
 - **2024-07-26**  
@@ -121,13 +125,17 @@
    同样打开微博 APP。
 
    ![微博](https://github.com/user-attachments/assets/789233c7-7468-45d7-8b15-078e1a1f3a4c)
+   ![f73290b7718446d31668edcaac8806d](https://github.com/user-attachments/assets/f5f70fbc-c4b7-42ce-9f33-9d87299278d9)
+   ![b3670b296164b188f9008b7d9ce4fb5](https://github.com/user-attachments/assets/c1de0691-04e4-4992-9e2b-185becd04089)
 
-2. **抓包定位**  
+
+
+3. **抓包定位**  
    使用抓包工具搜索 `状态` 关键词，找到对应链接。
 
    ![111](https://github.com/user-attachments/assets/fecbdae8-52ca-4ddd-a655-229289cb2f79)
 
-3. **复制链接**  
+4. **复制链接**  
    复制以 `https://api.weibo.cn/2/statuses` 开头的链接备用。
 
    ![222](https://github.com/user-attachments/assets/69c375e1-0b87-448e-a8e5-3d3e2ba30b67)
