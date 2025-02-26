@@ -36,7 +36,8 @@
 
 ## 更新日志
 
-- **2025-02-26**  
+- **2025-02-26**
+  - 修改weibo_chaohua_sign.py，添加了since_id参数，进行分页 
   - 对 statuses 签到的图片补充。  
   - chaohua_sign.py，单账号需要删除tianqi_url = os.getenv("status_tianqi")和("tianqi", tianqi_url)   
 
