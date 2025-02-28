@@ -116,10 +116,10 @@ if __name__ == "__main__":
         for info in card_type_11_info:
             result = sign_in(headers, params, info['scheme'], since_id)
             if result and result.get('msg') == '已签到':
-                status = '✅ 成功'
+                state = '✅ 成功'
             else:
-                status = '❌ 失败'
-            result_message += f"    {info['title_sub']}超话：{status}\n" 
+                state = '❌ 失败'
+            result_message += f"    {info['title_sub']}超话：{state}\n" 
             time.sleep(random.randint(5, 10))  
         print(result_message)
         
