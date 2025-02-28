@@ -36,6 +36,10 @@
 
 ## 更新日志
 
+
+- **2025-02-28**
+  - 新增操作视频
+  - 
 - **2025-02-26**
   - 修改weibo_chaohua_sign.py，添加了since_id参数，进行分页 
   - 对 statuses 签到的图片补充。  
@@ -148,6 +152,11 @@
 ![运行结果](https://github.com/user-attachments/assets/f5276d6b-6378-44dd-b188-3a30251a1564)  
 ![运行结果](https://github.com/kuku3863/sign_weibo_chaohua/blob/master/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250207112445.png)  
 ![运行结果](https://github.com/kuku3863/sign_weibo_chaohua/blob/master/images/%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20250207112506.jpg)
+
+
+https://github.com/user-attachments/assets/109660dc-2913-48aa-b966-835d8db911c9
+
+
 
 ## 推送通知设置
 
