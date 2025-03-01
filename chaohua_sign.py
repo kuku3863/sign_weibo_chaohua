@@ -18,8 +18,8 @@ def get_super_topics(params, payload, since_id):
             "User-Agent": "iPhone13,4__weibo__14.6.3__iphone__os17.3.1"
         }
         
-        # 更新body数据中的since_id
-        body = {
+        # 更新request_body数据中的since_id
+        request_body = {
                 "flowId" : "232478_-_one_checkin",
                 "taskType" : "loadMore",
                 "luicode" : "10001292",
@@ -46,8 +46,8 @@ def get_super_topics(params, payload, since_id):
                 "feedDynamicEnable" : "1"
                 }
         
-        # 合并传入的payload和固定的body数据
-        final_payload = {**payload, **内容}
+        # 合并传入的payload和固定的request_body数据
+        final_payload = {**payload, **request_body}
         
         response = requests.post(
             url,
